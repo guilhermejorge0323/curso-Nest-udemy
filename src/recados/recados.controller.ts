@@ -1,11 +1,25 @@
-import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
+import { RecadosService } from './recados.service.js';
 
 @Controller('recados')
 export class RecadosController {
-  @HttpCode(100)
+  constructor(private readonly recadosService: RecadosService) {}
+
+  @HttpCode(200)
   @Get()
-  findAll() {
-    return 'Retorna todos os recardo';
+  findAll(@Query() pagination: any) {
+    const { limit, offset } = pagination;
+    return `Retorna todos os recardo na pagina ${offset} de limite = ${limit}`;
   }
 
   @Get('/:id')
@@ -16,6 +30,19 @@ export class RecadosController {
   @Post()
   create(@Body() body: any) {
     console.log(body);
-    return `Essa rota cria um recado`;
+    return this.recadosService.hello();
+  }
+
+  @Patch('/:id')
+  update(@Param('id') id: string, @Body() body: any) {
+    return {
+      id,
+      ...body,
+    };
+  }
+
+  @Delete('/:id')
+  remove(@Param('id') id: string) {
+    return `Apagou com sucesso de id ${id}`;
   }
 }
