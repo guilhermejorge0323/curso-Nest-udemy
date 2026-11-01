@@ -19,18 +19,18 @@ export class RecadosController {
   @Get()
   findAll(@Query() pagination: any) {
     const { limit, offset } = pagination;
-    return `Retorna todos os recardo na pagina ${offset} de limite = ${limit}`;
+    return this.recadosService.findAll()
   }
 
   @Get('/:id')
   findOne(@Param('id') id: any) {
-    return `Retorna apenas 1 recado com parametro: ${id}`;
+    return this.recadosService.findOne(id);
   }
 
   @Post()
   create(@Body() body: any) {
     console.log(body);
-    return this.recadosService.hello();
+    return 'a';
   }
 
   @Patch('/:id')
