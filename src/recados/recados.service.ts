@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { RecadoEntity } from './entities/recado.entity.js';
+import { CreateRecadoDto } from './dto/create-recado.dto.js';
 
 @Injectable()
 export class RecadosService {
@@ -32,5 +33,12 @@ export class RecadosService {
     }
 
     return recado;
+  }
+
+  create(data: CreateRecadoDto) {
+    return {
+      message: 'Seu objeto esta ok',
+      ...data,
+    };
   }
 }

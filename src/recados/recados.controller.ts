@@ -10,6 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { RecadosService } from './recados.service.js';
+import { CreateRecadoDto } from './dto/create-recado.dto.js';
 
 @Controller('recados')
 export class RecadosController {
@@ -19,7 +20,7 @@ export class RecadosController {
   @Get()
   findAll(@Query() pagination: any) {
     const { limit, offset } = pagination;
-    return this.recadosService.findAll()
+    return this.recadosService.findAll();
   }
 
   @Get('/:id')
@@ -28,9 +29,8 @@ export class RecadosController {
   }
 
   @Post()
-  create(@Body() body: any) {
-    console.log(body);
-    return 'a';
+  create(@Body() body: CreateRecadoDto) {
+    return this.recadosService.create(body);
   }
 
   @Patch('/:id')
