@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -42,7 +43,7 @@ export class RecadosController {
   }
 
   @Delete('/:id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return `Apagou com sucesso de id ${id}`;
   }
 }
