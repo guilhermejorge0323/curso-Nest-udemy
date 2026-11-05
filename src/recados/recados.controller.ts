@@ -19,9 +19,8 @@ export class RecadosController {
 
   @HttpCode(200)
   @Get()
-  findAll(@Query() pagination: any) {
-    const { limit, offset } = pagination;
-    return this.recadosService.findAll();
+  async findAll(@Query() pagination: any) {
+    return await this.recadosService.findAll();
   }
 
   @Get('/:id')

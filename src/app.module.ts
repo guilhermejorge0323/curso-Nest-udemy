@@ -3,22 +3,25 @@ import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { RecadosModule } from './recados/recados.module.js';
-
-
-
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
 @Module({
   imports: [
-    ObserveModule.forRoot({
-      appKey: process.env.OBSERVE_APP_KEY ?? 'YOUR_APP_KEY',
-      appSecret: process.env.OBSERVE_APP_SECRET ?? 'YOUR_APP_SECRET',
-      serviceId: 'conceitos_nest',
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5433,
+      username: 'postgres',
+      database: 'postgres',
+      password: '123456',
+      autoLoadEntities: true, // Carrega entidades sem precisar especifica-las
+      synchronize: true, // Sincroniza com o DB <- Nao usar em producao
     }),
     RecadosModule,
   ],
   controllers: [AppController],
-  providers: [AppService,],
+  providers: [AppService],
 })
 export class AppModule {}

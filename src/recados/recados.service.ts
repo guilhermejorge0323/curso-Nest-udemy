@@ -6,9 +6,16 @@ import {
 } from '@nestjs/common';
 import { RecadoEntity } from './entities/recado.entity.js';
 import { CreateRecadoDto } from './dto/create-recado.dto.js';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class RecadosService {
+  constructor(
+    @InjectRepository(RecadoEntity)
+    private readonly recadoRepository: Repository<RecadoEntity>,
+  ) {}
+
   private lastId = 1;
   private recados: RecadoEntity[] = [
     {
@@ -22,7 +29,7 @@ export class RecadosService {
   ];
 
   findAll() {
-    return this.recados;
+    return this.recadoRepository.find();
   }
 
   findOne(id: string) {
