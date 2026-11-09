@@ -4,6 +4,7 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { RecadosModule } from './recados/recados.module.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PessoasModule } from './pessoas/pessoas.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -20,6 +21,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       synchronize: true, // Sincroniza com o DB <- Nao usar em producao
     }),
     RecadosModule,
+    PessoasModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -19,8 +19,8 @@ export class RecadosController {
 
   @HttpCode(200)
   @Get()
-  async findAll(@Query() pagination: any) {
-    return await this.recadosService.findAll();
+  findAll(@Query() pagination: any) {
+    return this.recadosService.findAll();
   }
 
   @Get('/:id')
@@ -34,11 +34,8 @@ export class RecadosController {
   }
 
   @Patch('/:id')
-  update(@Param('id') id: string, @Body() body: any) {
-    return {
-      id,
-      ...body,
-    };
+  update(@Param('id') id: number, @Body() body: any) {
+    return this.recadosService.update(body, id)
   }
 
   @Delete('/:id')
