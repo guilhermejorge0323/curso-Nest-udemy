@@ -25,7 +25,9 @@ export class RecadosService {
     });
   }
 
-  findOne(id: string) {}
+  findOne(id: number) {
+    return this.recadoRepository.findOne({ where: { id } })
+  }
 
   async create(data: CreateRecadoDto) {
     const { deId, forId, text } = data;

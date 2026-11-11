@@ -9,12 +9,19 @@ import {
   Patch,
   Post,
   Query,
+  UseInterceptors,
+  UsePipes,
 } from '@nestjs/common';
 import { RecadosService } from './recados.service.js';
 import { CreateRecadoDto } from './dto/create-recado.dto.js';
 import { PaginationDto } from '../common/dto/pagination.dto.js';
+import { ParseIntIdPipe } from '../common/pipes/perse-int-id.pipe.js';
+import { AddHeaderInterceptor } from '../common/interceptors/add-header.interceptor.js';
+import { TimeConnectionInterceptor } from '../common/interceptors/timing-connection.interceptor.js';
 
 @Controller('recados')
+@UsePipes(ParseIntIdPipe)
+@UseInterceptors(AddHeaderInterceptor)
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
 
@@ -25,6 +32,7 @@ export class RecadosController {
   }
 
   @Get('/:id')
+  @UseInterceptors(TimeConnectionInterceptor)
   findOne(@Param('id') id: any) {
     return this.recadosService.findOne(id);
   }
