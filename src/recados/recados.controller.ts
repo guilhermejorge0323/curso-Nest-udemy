@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { RecadosService } from './recados.service.js';
 import { CreateRecadoDto } from './dto/create-recado.dto.js';
+import { PaginationDto } from '../common/dto/pagination.dto.js';
 
 @Controller('recados')
 export class RecadosController {
@@ -19,8 +20,8 @@ export class RecadosController {
 
   @HttpCode(200)
   @Get()
-  findAll(@Query() pagination: any) {
-    return this.recadosService.findAll();
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.recadosService.findAll(paginationDto);
   }
 
   @Get('/:id')

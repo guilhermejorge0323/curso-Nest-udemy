@@ -34,7 +34,13 @@ export class PessoasService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} pessoa`;
+    const person = this.pessoaRepository.findOne({ where: { id } });
+
+    if (!person) {
+      throw new Error('Sem pESSOA');
+    }
+
+    return person;
   }
 
   async update(id: number, updatePessoaDto: UpdatePessoaDto) {

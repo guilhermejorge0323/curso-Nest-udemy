@@ -3,8 +3,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { RecadoEntity } from '../../recados/entities/recado.entity.js';
 
 @Entity()
 export class Pessoa {
@@ -23,4 +25,10 @@ export class Pessoa {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @OneToMany(() => RecadoEntity, recado => recado.de)
+  recadosEnviados: RecadoEntity[];
+
+  @OneToMany(() => RecadoEntity, recado => recado.for)
+  recadosRecebidos: RecadoEntity[];
 }
